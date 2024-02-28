@@ -10,6 +10,8 @@ class BottomTabBar extends StatefulWidget {
 class _BottomTabBarState extends State<BottomTabBar> {
   int selectedIndex = 0;
 
+  List<Widget> display = [Home(), Signal(), Network(), Battery()];
+
   void onItemTapped(int index) {
     setState(() {
       selectedIndex = index;
@@ -19,14 +21,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('$selectedIndex'),
-          ],
-        ),
-      ),
+      body: display[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedIndex,
         onTap: onItemTapped,
@@ -64,6 +59,70 @@ class _BottomTabBarState extends State<BottomTabBar> {
         selectedFontSize: 12,
         unselectedFontSize: 12,
         unselectedItemColor: Colors.grey,
+      ),
+    );
+  }
+}
+
+class Home extends StatelessWidget {
+  const Home({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const Text('home'),
+        ],
+      ),
+    );
+  }
+}
+
+class Signal extends StatelessWidget {
+  const Signal({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const Text('signal'),
+        ],
+      ),
+    );
+  }
+}
+
+class Network extends StatelessWidget {
+  const Network({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const Text('network'),
+        ],
+      ),
+    );
+  }
+}
+
+class Battery extends StatelessWidget {
+  const Battery({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const Text('battery'),
+        ],
       ),
     );
   }
