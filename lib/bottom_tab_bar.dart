@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learning_ui/inputPage.dart';
 
 class BottomTabBar extends StatefulWidget {
   const BottomTabBar({super.key});
@@ -9,6 +10,7 @@ class BottomTabBar extends StatefulWidget {
 
 class _BottomTabBarState extends State<BottomTabBar> {
   int selectedIndex = 0;
+  int onPressedCounter = 0;
 
   List<Widget> display = [Home(), Signal(), Network(), Battery()];
 
@@ -16,6 +18,10 @@ class _BottomTabBarState extends State<BottomTabBar> {
     setState(() {
       selectedIndex = index;
     });
+  }
+
+  void onPressedController() {
+    onPressedCounter += 1;
   }
 
   @override
@@ -59,6 +65,23 @@ class _BottomTabBarState extends State<BottomTabBar> {
         selectedFontSize: 12,
         unselectedFontSize: 12,
         unselectedItemColor: Colors.grey,
+      ),
+      floatingActionButton: Visibility(
+        visible: selectedIndex == 0,
+        child: FloatingActionButton(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          backgroundColor: Colors.blueAccent,
+          foregroundColor: Colors.white,
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const InputPage()),
+            );
+          },
+          tooltip: 'Increment',
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }
