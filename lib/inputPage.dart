@@ -19,6 +19,16 @@ class _InputPageState extends State<InputPage> {
 
   void saveText() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('tweet', _controller.text);
+  }
+
+  bool emptyChecker() {
+    RegExp regExp = RegExp(r'^\s*$');
+    if (_controller.text.isEmpty == true || regExp.hasMatch(_controller.text)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
@@ -54,17 +64,21 @@ class _InputPageState extends State<InputPage> {
                   child: const Text('キャンセル'),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BottomTabBar()),
-                    );
-                  },
+                  onPressed: emptyChecker() == true
+                      ? null
+                      : () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const BottomTabBar()),
+                          );
+                        },
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.blueAccent,
-                  ),
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blueAccent,
+                      disabledBackgroundColor:
+                          Colors.blueAccent.withOpacity(0.6),
+                      disabledForegroundColor: Colors.white.withOpacity(0.6)),
                   child: const Text('ポストする'),
                 ),
               ],
@@ -76,7 +90,9 @@ class _InputPageState extends State<InputPage> {
                 hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
                 border: InputBorder.none,
               ),
-              onChanged: (text) {},
+              onChanged: (text) {
+                setState(() {});
+              },
               autofocus: true,
               style: const TextStyle(
                 color: Colors.white,
