@@ -19,7 +19,9 @@ class _InputPageState extends State<InputPage> {
 
   void saveText() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('tweet', _controller.text);
+    List<String> data = prefs.getStringList('tweetText') ?? [];
+    data.add(_controller.text);
+    prefs.setStringList('tweetText', data);
   }
 
   bool emptyChecker() {

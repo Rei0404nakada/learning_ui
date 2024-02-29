@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learning_ui/inputPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomTabBar extends StatefulWidget {
   const BottomTabBar({super.key});
@@ -27,44 +28,61 @@ class _BottomTabBarState extends State<BottomTabBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(10),
+        child: AppBar(
+          backgroundColor: Colors.black,
+        ),
+      ),
       body: display[selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: selectedIndex,
-        onTap: onItemTapped,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_sharp),
-            label: 'home',
-            tooltip: 'home',
-            backgroundColor: Colors.black,
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              width: 1,
+              color: Colors.grey,
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.signal_cellular_alt),
-            label: 'signal',
-            tooltip: 'signal',
-            backgroundColor: Colors.black,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.network_check_sharp),
-            label: 'network',
-            tooltip: 'network',
-            backgroundColor: Colors.black,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.battery_charging_full_outlined),
-            label: 'battery',
-            tooltip: 'battery',
-            backgroundColor: Colors.black,
-          ),
-        ],
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.black,
-        enableFeedback: false,
-        iconSize: 25,
-        selectedItemColor: Colors.amber,
-        selectedFontSize: 12,
-        unselectedFontSize: 12,
-        unselectedItemColor: Colors.grey,
+        ),
+        child: BottomNavigationBar(
+          currentIndex: selectedIndex,
+          onTap: onItemTapped,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_sharp),
+              label: 'home',
+              tooltip: 'home',
+              backgroundColor: Colors.black,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.signal_cellular_alt),
+              label: 'signal',
+              tooltip: 'signal',
+              backgroundColor: Colors.black,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.network_check_sharp),
+              label: 'network',
+              tooltip: 'network',
+              backgroundColor: Colors.black,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.battery_charging_full_outlined),
+              label: 'battery',
+              tooltip: 'battery',
+              backgroundColor: Colors.black,
+            ),
+          ],
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.black,
+          enableFeedback: false,
+          iconSize: 25,
+          selectedItemColor: Colors.amber,
+          selectedFontSize: 12,
+          unselectedFontSize: 12,
+          unselectedItemColor: Colors.grey,
+        ),
       ),
       floatingActionButton: Visibility(
         visible: selectedIndex == 0,
@@ -87,17 +105,62 @@ class _BottomTabBarState extends State<BottomTabBar> {
   }
 }
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  late List<String>? tweet;
+
+  Future<List<String>?> getText() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    tweet = prefs.getStringList('tweetText');
+    return tweet;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          const Text('home'),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            FutureBuilder<List<String>?>(
+              future: getText(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<String>?> snapshot) {
+                if (snapshot.hasData) {
+                  List<String>? data = snapshot.data;
+                  return Column(
+                    children: <Widget>[
+                      for (int i = 0; i < data!.length; i++) ...{
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          width: double.infinity,
+                          decoration: const BoxDecoration(
+                              border: Border(
+                            bottom: BorderSide(width: 1, color: Colors.grey),
+                          )),
+                          child: Text(
+                            data[i],
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                      }
+                    ],
+                  );
+                } else {
+                  return const Text('まだなにもおきていません');
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
