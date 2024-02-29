@@ -5,27 +5,62 @@ class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<Home> createState() => HomeState();
 }
 
-class _HomeState extends State<Home> {
+class HomeState extends State<Home> {
   late List<String>? tweet;
   List<bool> select = [];
-  void selectList() {
-    for (var i = 0; i < tweet!.length; i++) {
-      select.add(false);
+
+  void saveFavorite() async {
+    List<String> favoriteString = [];
+    for (var i = 0; i < select.length; i++) {
+      if (select[i]) {
+        favoriteString.add('true');
+      } else {
+        favoriteString.add('false');
+      }
     }
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList('favoriteSave', favoriteString);
+    print('favoriteString$favoriteString');
   }
 
   Future<List<String>?> getText() async {
+    // List<bool> favoriteBool = [];
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    // List<String> favorite = prefs.getStringList('favoriteSave') ?? [];
     tweet = prefs.getStringList('tweetText');
+    // print('favorite$favorite');
+    // for (var i = 0; i < favorite.length; i++) {
+    //   if (favorite[i] == 'true') {
+    //     favoriteBool.add(true);
+    //   } else {
+    //     favoriteBool.add(false);
+    //   }
+    // }
+
+    // if (favoriteBool.isNotEmpty) {
+    //   print('favoriteBool$favoriteBool');
+    //   select = favoriteBool;
+    // }
+    if (select.length != tweet!.length) {
+      // select.add(false);
+      // select = [false, false, false, false, false, false];
+      for (var i = 0; i < tweet!.length; i++) {
+        select.add(false);
+      }
+      print('select$select');
+      print('tweet!$tweet');
+    }
+
     return tweet;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Align(
+      alignment: Alignment.topCenter,
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -34,14 +69,14 @@ class _HomeState extends State<Home> {
               builder: (BuildContext context,
                   AsyncSnapshot<List<String>?> snapshot) {
                 if (snapshot.hasData) {
-                  selectList();
                   List<String>? data = snapshot.data;
                   int dataLength = data!.length;
                   return Column(
                     children: <Widget>[
                       for (int i = 0; i < dataLength; i++) ...{
                         Container(
-                          padding: const EdgeInsets.all(20),
+                          padding: const EdgeInsets.only(
+                              top: 20, right: 10, bottom: 0, left: 20),
                           width: double.infinity,
                           decoration: const BoxDecoration(
                             border: Border(
@@ -55,11 +90,13 @@ class _HomeState extends State<Home> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
-                                    Text(
-                                      data[dataLength - i - 1],
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.white,
+                                    Flexible(
+                                      child: Text(
+                                        data[dataLength - i - 1],
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -86,6 +123,7 @@ class _HomeState extends State<Home> {
                                       setState(() {
                                         select[dataLength - i - 1] =
                                             !select[dataLength - i - 1];
+                                        saveFavorite();
                                         print(i);
                                       });
                                     },
