@@ -67,6 +67,7 @@ class _InputPageState extends State<InputPage> {
                   onPressed: emptyChecker() == true
                       ? null
                       : () {
+                          saveText();
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
