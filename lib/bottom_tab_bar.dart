@@ -133,18 +133,20 @@ class _HomeState extends State<Home> {
                   AsyncSnapshot<List<String>?> snapshot) {
                 if (snapshot.hasData) {
                   List<String>? data = snapshot.data;
+                  int dataLength = data!.length;
                   return Column(
                     children: <Widget>[
-                      for (int i = 0; i < data!.length; i++) ...{
+                      for (int i = 0; i < dataLength; i++) ...{
                         Container(
                           padding: const EdgeInsets.all(20),
                           width: double.infinity,
                           decoration: const BoxDecoration(
-                              border: Border(
-                            bottom: BorderSide(width: 1, color: Colors.grey),
-                          )),
+                            border: Border(
+                              bottom: BorderSide(width: 1, color: Colors.grey),
+                            ),
+                          ),
                           child: Text(
-                            data[i],
+                            data[dataLength - i - 1],
                             style: const TextStyle(
                               fontSize: 18,
                               color: Colors.white,
