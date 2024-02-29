@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learning_ui/bottom_tab_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class InputPage extends StatefulWidget {
   const InputPage({super.key});
@@ -16,15 +17,27 @@ class _InputPageState extends State<InputPage> {
     super.dispose();
   }
 
+  void saveText() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(10),
+        child: AppBar(
+          backgroundColor: Colors.black,
+        ),
+      ),
       body: Center(
         child: Column(
           children: <Widget>[
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                ElevatedButton(
+                TextButton(
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
@@ -32,6 +45,12 @@ class _InputPageState extends State<InputPage> {
                           builder: (context) => const BottomTabBar()),
                     );
                   },
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
                   child: const Text('キャンセル'),
                 ),
                 ElevatedButton(
@@ -42,6 +61,10 @@ class _InputPageState extends State<InputPage> {
                           builder: (context) => const BottomTabBar()),
                     );
                   },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.blueAccent,
+                  ),
                   child: const Text('ポストする'),
                 ),
               ],
@@ -49,12 +72,16 @@ class _InputPageState extends State<InputPage> {
             TextField(
               controller: _controller,
               decoration: const InputDecoration(
-                labelText: 'いまどうしてる？',
+                hintText: 'いまどうしてる？',
+                hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
                 border: InputBorder.none,
               ),
-              onChanged: (text) {
-                print('Current text: $text');
-              },
+              onChanged: (text) {},
+              autofocus: true,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
             ),
           ],
         ),
