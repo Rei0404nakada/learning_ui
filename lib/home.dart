@@ -10,12 +10,13 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
   late List<String>? tweet;
-  List<bool> select = [];
+  List<bool> favoriteSelect = [];
+  List<bool> cachedSelect = [];
 
   void saveFavorite() async {
     List<String> favoriteString = [];
-    for (var i = 0; i < select.length; i++) {
-      if (select[i]) {
+    for (var i = 0; i < favoriteSelect.length; i++) {
+      if (favoriteSelect[i]) {
         favoriteString.add('true');
       } else {
         favoriteString.add('false');
@@ -23,37 +24,24 @@ class HomeState extends State<Home> {
     }
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setStringList('favoriteSave', favoriteString);
-    print('favoriteString$favoriteString');
   }
 
   Future<List<String>?> getText() async {
-    // List<bool> favoriteBool = [];
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // List<String> favorite = prefs.getStringList('favoriteSave') ?? [];
     tweet = prefs.getStringList('tweetText');
-    // print('favorite$favorite');
-    // for (var i = 0; i < favorite.length; i++) {
-    //   if (favorite[i] == 'true') {
-    //     favoriteBool.add(true);
-    //   } else {
-    //     favoriteBool.add(false);
-    //   }
-    // }
-
-    // if (favoriteBool.isNotEmpty) {
-    //   print('favoriteBool$favoriteBool');
-    //   select = favoriteBool;
-    // }
-    if (select.length != tweet!.length) {
-      // select.add(false);
-      // select = [false, false, false, false, false, false];
+    if (favoriteSelect.length != tweet!.length) {
       for (var i = 0; i < tweet!.length; i++) {
-        select.add(false);
+        favoriteSelect.add(false);
       }
-      print('select$select');
+      print('favoriteSelect$favoriteSelect');
       print('tweet!$tweet');
     }
-
+    if (cachedSelect.length != tweet!.length) {
+      for (var i = 0; i < tweet!.length; i++) {
+        cachedSelect.add(false);
+      }
+      print('cachedSelect$cachedSelect');
+    }
     return tweet;
   }
 
@@ -113,25 +101,32 @@ class HomeState extends State<Home> {
                                     color: Colors.grey,
                                   ),
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      setState(() {
+                                        cachedSelect[dataLength - i - 1] =
+                                            !cachedSelect[dataLength - i - 1];
+                                      });
+                                    },
                                     icon: const Icon(Icons.cached),
                                     iconSize: 18,
-                                    color: Colors.grey,
+                                    color: cachedSelect[dataLength - i - 1]
+                                        ? Colors.green
+                                        : Colors.grey,
                                   ),
                                   IconButton(
                                     onPressed: () {
                                       setState(() {
-                                        select[dataLength - i - 1] =
-                                            !select[dataLength - i - 1];
+                                        favoriteSelect[dataLength - i - 1] =
+                                            !favoriteSelect[dataLength - i - 1];
                                         saveFavorite();
                                         print(i);
                                       });
                                     },
-                                    icon: select[dataLength - i - 1]
+                                    icon: favoriteSelect[dataLength - i - 1]
                                         ? const Icon(Icons.favorite)
                                         : const Icon(Icons.favorite_outline),
                                     iconSize: 18,
-                                    color: select[dataLength - i - 1]
+                                    color: favoriteSelect[dataLength - i - 1]
                                         ? Colors.pink
                                         : Colors.grey,
                                   ),
