@@ -12,6 +12,8 @@ class HomeState extends State<Home> {
   late List<String>? tweet;
   List<bool> favoriteSelect = [];
   List<bool> cachedSelect = [];
+  String userName = 'rei';
+  String userId = '@Gamusiro__';
 
   void saveFavorite() async {
     List<String> favoriteString = [];
@@ -73,6 +75,24 @@ class HomeState extends State<Home> {
                           ),
                           child: Column(
                             children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: Text(
+                                      userName,
+                                      style: const TextStyle(
+                                          fontSize: 20, color: Colors.white),
+                                    ),
+                                  ),
+                                  Text(
+                                    userId,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ],
+                              ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 45),
                                 child: Row(
