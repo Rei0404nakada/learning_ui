@@ -59,6 +59,9 @@ class HomeState extends State<Home> {
                 future: getText(),
                 builder: (BuildContext context,
                     AsyncSnapshot<List<String>?> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  }
                   if (snapshot.hasData) {
                     List<String>? data = snapshot.data;
                     int dataLength = data!.length;
@@ -67,7 +70,7 @@ class HomeState extends State<Home> {
                         for (int i = 0; i < dataLength; i++) ...{
                           Container(
                             padding: const EdgeInsets.only(
-                                top: 20, right: 10, bottom: 0, left: 20),
+                                top: 10, right: 10, bottom: 0, left: 10),
                             width: double.infinity,
                             decoration: const BoxDecoration(
                               border: Border(
