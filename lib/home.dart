@@ -51,51 +51,51 @@ class HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.topCenter,
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            FutureBuilder<List<String>?>(
-              future: getText(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<String>?> snapshot) {
-                if (snapshot.hasData) {
-                  List<String>? data = snapshot.data;
-                  int dataLength = data!.length;
-                  return Column(
-                    children: <Widget>[
-                      for (int i = 0; i < dataLength; i++) ...{
-                        Container(
-                          padding: const EdgeInsets.only(
-                              top: 20, right: 10, bottom: 0, left: 20),
-                          width: double.infinity,
-                          decoration: const BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(width: 1, color: Colors.grey),
-                            ),
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 10),
-                                    child: Text(
-                                      userName,
-                                      style: const TextStyle(
-                                          fontSize: 20, color: Colors.white),
-                                    ),
-                                  ),
-                                  Text(
-                                    userId,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ],
+      child: ListView(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              FutureBuilder<List<String>?>(
+                future: getText(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<String>?> snapshot) {
+                  if (snapshot.hasData) {
+                    List<String>? data = snapshot.data;
+                    int dataLength = data!.length;
+                    return Column(
+                      children: <Widget>[
+                        for (int i = 0; i < dataLength; i++) ...{
+                          Container(
+                            padding: const EdgeInsets.only(
+                                top: 20, right: 10, bottom: 0, left: 20),
+                            width: double.infinity,
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                bottom:
+                                    BorderSide(width: 1, color: Colors.grey),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 45),
-                                child: Row(
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: Text(
+                                        userName,
+                                        style: const TextStyle(
+                                            fontSize: 20, color: Colors.white),
+                                      ),
+                                    ),
+                                    Text(
+                                      userId,
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
                                     Flexible(
@@ -109,74 +109,76 @@ class HomeState extends State<Home> {
                                     ),
                                   ],
                                 ),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.chat_bubble_outline),
-                                    iconSize: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        cachedSelect[dataLength - i - 1] =
-                                            !cachedSelect[dataLength - i - 1];
-                                      });
-                                    },
-                                    icon: const Icon(Icons.cached),
-                                    iconSize: 18,
-                                    color: cachedSelect[dataLength - i - 1]
-                                        ? Colors.green
-                                        : Colors.grey,
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        favoriteSelect[dataLength - i - 1] =
-                                            !favoriteSelect[dataLength - i - 1];
-                                        saveFavorite();
-                                        print(i);
-                                      });
-                                    },
-                                    icon: favoriteSelect[dataLength - i - 1]
-                                        ? const Icon(Icons.favorite)
-                                        : const Icon(Icons.favorite_outline),
-                                    iconSize: 18,
-                                    color: favoriteSelect[dataLength - i - 1]
-                                        ? Colors.pink
-                                        : Colors.grey,
-                                  ),
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.save_alt_sharp),
-                                    iconSize: 18,
-                                    color: Colors.grey,
-                                  ),
-                                ],
-                              ),
-                            ],
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon:
+                                          const Icon(Icons.chat_bubble_outline),
+                                      iconSize: 18,
+                                      color: Colors.grey,
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          cachedSelect[dataLength - i - 1] =
+                                              !cachedSelect[dataLength - i - 1];
+                                        });
+                                      },
+                                      icon: const Icon(Icons.cached),
+                                      iconSize: 18,
+                                      color: cachedSelect[dataLength - i - 1]
+                                          ? Colors.green
+                                          : Colors.grey,
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          favoriteSelect[dataLength - i - 1] =
+                                              !favoriteSelect[
+                                                  dataLength - i - 1];
+                                          saveFavorite();
+                                          print(i);
+                                        });
+                                      },
+                                      icon: favoriteSelect[dataLength - i - 1]
+                                          ? const Icon(Icons.favorite)
+                                          : const Icon(Icons.favorite_outline),
+                                      iconSize: 18,
+                                      color: favoriteSelect[dataLength - i - 1]
+                                          ? Colors.pink
+                                          : Colors.grey,
+                                    ),
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.save_alt_sharp),
+                                      iconSize: 18,
+                                      color: Colors.grey,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        )
-                      }
-                    ],
-                  );
-                } else {
-                  return const Text(
-                    'まだなにもおきていません',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                    ),
-                  );
-                }
-              },
-            ),
-          ],
-        ),
+                        }
+                      ],
+                    );
+                  } else {
+                    return const Text(
+                      'まだなにもおきていません',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
