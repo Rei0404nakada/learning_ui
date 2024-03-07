@@ -59,9 +59,6 @@ class HomeState extends State<Home> {
               future: getText(),
               builder: (BuildContext context,
                   AsyncSnapshot<List<String>?> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                }
                 if (snapshot.hasData) {
                   List<String>? data = snapshot.data;
                   int dataLength = data!.length;
@@ -78,19 +75,19 @@ class HomeState extends State<Home> {
                             ),
                           ),
                           child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Container(
-                                width: _deviceWidth * 0.1,
-                                child: Text(
-                                  'aaa',
-                                  style: TextStyle(
+                                  width: _deviceWidth * 0.1,
+                                  height: _deviceWidth * 0.1,
+                                  child: Placeholder(
                                     color: Colors.white,
-                                  ),
-                                ),
-                              ),
+                                  )),
                               Expanded(
                                 child: Container(
                                   child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Row(
                                         children: <Widget>[
@@ -100,14 +97,14 @@ class HomeState extends State<Home> {
                                             child: Text(
                                               userName,
                                               style: const TextStyle(
-                                                  fontSize: 20,
+                                                  fontSize: 18,
                                                   color: Colors.white),
                                             ),
                                           ),
                                           Text(
                                             userId,
                                             style: const TextStyle(
-                                              fontSize: 18,
+                                              fontSize: 16,
                                             ),
                                           ),
                                         ],
