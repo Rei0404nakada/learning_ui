@@ -78,11 +78,13 @@ class HomeState extends State<Home> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Container(
-                                  width: _deviceWidth * 0.1,
-                                  height: _deviceWidth * 0.1,
-                                  child: Placeholder(
-                                    color: Colors.white,
-                                  )),
+                                width: _deviceWidth * 0.1,
+                                height: _deviceWidth * 0.1,
+                                child: CircleAvatar(
+                                  backgroundImage:
+                                      AssetImage('assets/image/IMG_3614.jpg'),
+                                ),
+                              ),
                               Expanded(
                                 child: Column(
                                   children: <Widget>[
