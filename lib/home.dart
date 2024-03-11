@@ -14,6 +14,7 @@ class HomeState extends State<Home> {
   List<bool> cachedSelect = [];
   String userName = 'rei';
   String userId = '@Gamusiro__';
+  String userImagePass = 'assets/image/IMG_3614.jpg';
 
   void saveFavorite() async {
     List<String> favoriteString = [];
@@ -81,8 +82,7 @@ class HomeState extends State<Home> {
                                 width: _deviceWidth * 0.1,
                                 height: _deviceWidth * 0.1,
                                 child: CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage('assets/image/IMG_3614.jpg'),
+                                  backgroundImage: AssetImage(userImagePass),
                                 ),
                               ),
                               Expanded(
@@ -112,6 +112,14 @@ class HomeState extends State<Home> {
                                                 userId,
                                                 style: const TextStyle(
                                                   fontSize: 16,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                              const Text(
+                                                '・00分',
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.grey,
                                                 ),
                                               ),
                                             ],
