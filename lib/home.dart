@@ -79,8 +79,11 @@ class HomeState extends State<Home> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Container(
-                                width: _deviceWidth * 0.1,
-                                height: _deviceWidth * 0.1,
+                                padding:
+                                    EdgeInsets.only(top: _deviceWidth * 0.02),
+                                width: _deviceWidth * 0.12,
+                                height:
+                                    _deviceWidth * 0.12 + _deviceWidth * 0.02,
                                 child: CircleAvatar(
                                   backgroundImage: AssetImage(userImagePass),
                                 ),
