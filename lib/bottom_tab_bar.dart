@@ -32,7 +32,26 @@ class _BottomTabBarState extends State<BottomTabBar> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(10),
         child: AppBar(
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.white,
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            const UserAccountsDrawerHeader(
+              decoration: BoxDecoration(color: Colors.black),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage('assets/image/IMG_3614.jpg'),
+              ),
+              accountName: Text('rei'),
+              accountEmail: Text('@Gamusiro__'),
+            ),
+            ListTile(
+              leading: Icon(Icons.perm_identity_outlined),
+              title: Text('プロフィール'),
+              onTap: () {},
+            ),
+          ],
         ),
       ),
       body: display[selectedIndex],
