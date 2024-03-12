@@ -28,18 +28,19 @@ class _BottomTabBarState extends State<BottomTabBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color.fromARGB(255, 0, 20, 30),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(10),
         child: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Color.fromARGB(255, 0, 20, 30),
         ),
       ),
       drawer: Drawer(
+        backgroundColor: Color.fromARGB(255, 0, 16, 24),
         child: ListView(
           children: <Widget>[
             const UserAccountsDrawerHeader(
-              decoration: BoxDecoration(color: Colors.black),
+              decoration: BoxDecoration(color: Color.fromARGB(255, 0, 20, 30)),
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('assets/image/IMG_3614.jpg'),
               ),
@@ -47,8 +48,14 @@ class _BottomTabBarState extends State<BottomTabBar> {
               accountEmail: Text('@Gamusiro__'),
             ),
             ListTile(
-              leading: Icon(Icons.perm_identity_outlined),
-              title: Text('プロフィール'),
+              leading: const Icon(
+                Icons.perm_identity_outlined,
+                color: Colors.white,
+              ),
+              title: const Text(
+                'プロフィール',
+                style: TextStyle(color: Colors.white),
+              ),
               onTap: () {},
             ),
           ],
@@ -69,32 +76,30 @@ class _BottomTabBarState extends State<BottomTabBar> {
           onTap: onItemTapped,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home_sharp),
+              icon: Icon(
+                Icons.home_sharp,
+              ),
               label: 'home',
               tooltip: 'home',
-              backgroundColor: Colors.black,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.favorite_outline),
               label: 'いいね',
               tooltip: 'いいね',
-              backgroundColor: Colors.black,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.cached),
               label: 'リツイート',
               tooltip: 'リツイート',
-              backgroundColor: Colors.black,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.delete_outline),
               label: '消去',
               tooltip: '消去',
-              backgroundColor: Colors.black,
             ),
           ],
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.black,
+          backgroundColor: Color.fromARGB(255, 0, 20, 30),
           enableFeedback: false,
           iconSize: 25,
           selectedItemColor: Colors.amber,
