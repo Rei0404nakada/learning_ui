@@ -52,12 +52,12 @@ class HomeState extends State<Home> {
   Widget build(BuildContext context) {
     double _deviceWidth = MediaQuery.of(context).size.width;
     return CustomScrollView(
-      slivers: [
+      slivers: <Widget>[
         const SliverAppBar(
           pinned: false,
           floating: true,
           snap: true,
-          backgroundColor: Color.fromARGB(255, 0, 20, 30),
+          backgroundColor: Color(0xFF15202B),
           expandedHeight: 40,
           flexibleSpace: FlexibleSpaceBar(
             title: Text(
@@ -95,11 +95,9 @@ class HomeState extends State<Home> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Container(
-                                      padding: EdgeInsets.only(
-                                          top: _deviceWidth * 0.02),
+                                      margin: EdgeInsets.only(top: 8),
                                       width: _deviceWidth * 0.12,
-                                      height: _deviceWidth * 0.12 +
-                                          _deviceWidth * 0.02,
+                                      height: _deviceWidth * 0.12,
                                       child: CircleAvatar(
                                         backgroundImage:
                                             AssetImage(userImagePass),
@@ -223,7 +221,10 @@ class HomeState extends State<Home> {
                                   ],
                                 ),
                               ),
-                            }
+                            },
+                            const SizedBox(
+                              height: 54,
+                            )
                           ],
                         );
                       } else {

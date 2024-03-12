@@ -28,20 +28,14 @@ class _BottomTabBarState extends State<BottomTabBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 0, 20, 30),
-      // appBar: PreferredSize(
-      //   preferredSize: const Size.fromHeight(40),
-      //   child: AppBar(
-      //     backgroundColor: Color.fromARGB(255, 0, 20, 30).withOpacity(0.6),
-      //   ),
-      // ),
+      backgroundColor: Color(0xFF15202B),
       drawer: Drawer(
-        backgroundColor: Color.fromARGB(255, 0, 16, 24),
+        backgroundColor: Color(0xFF15202B),
         child: ListView(
           children: <Widget>[
             const UserAccountsDrawerHeader(
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 0, 20, 30),
+                color: Color(0xFF15202B),
               ),
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('assets/image/IMG_3614.jpg'),
@@ -74,7 +68,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
           ],
         ),
       ),
-      extendBodyBehindAppBar: true,
+      extendBody: true,
       body: display[selectedIndex],
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
@@ -113,13 +107,14 @@ class _BottomTabBarState extends State<BottomTabBar> {
             ),
           ],
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Color.fromARGB(255, 0, 20, 30),
+          backgroundColor: Color(0xFF15202B).withOpacity(0.8),
+          elevation: 0,
           enableFeedback: false,
           iconSize: 25,
           selectedItemColor: Colors.amber,
           selectedFontSize: 12,
           unselectedFontSize: 12,
-          unselectedItemColor: Colors.grey,
+          unselectedItemColor: Colors.white,
         ),
       ),
       floatingActionButton: Visibility(
@@ -137,6 +132,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
           },
           tooltip: 'Increment',
           child: const Icon(Icons.add),
+          elevation: 0,
         ),
       ),
     );
