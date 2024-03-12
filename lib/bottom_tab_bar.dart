@@ -30,7 +30,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 0, 20, 30),
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(10),
+        preferredSize: const Size.fromHeight(40),
         child: AppBar(
           backgroundColor: Color.fromARGB(255, 0, 20, 30),
         ),
@@ -40,7 +40,9 @@ class _BottomTabBarState extends State<BottomTabBar> {
         child: ListView(
           children: <Widget>[
             const UserAccountsDrawerHeader(
-              decoration: BoxDecoration(color: Color.fromARGB(255, 0, 20, 30)),
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 0, 20, 30),
+              ),
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('assets/image/IMG_3614.jpg'),
               ),

@@ -51,6 +51,22 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     double _deviceWidth = MediaQuery.of(context).size.width;
+    // const CustomScrollView(
+    //         slivers: [
+    //           SliverAppBar(
+    //             pinned: false,
+    //             floating: true,
+    //             snap: true,
+    //             backgroundColor: Color.fromARGB(255, 0, 20, 30),
+    //             expandedHeight: 100,
+    //             flexibleSpace: FlexibleSpaceBar(
+    //               title: Text(
+    //                 'aaa',
+    //               ),
+    //             ),
+    //           ),
+    //         ],
+    //       ),
     return Align(
       alignment: Alignment.topCenter,
       child: SingleChildScrollView(
