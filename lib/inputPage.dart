@@ -35,12 +35,14 @@ class _InputPageState extends State<InputPage> {
 
   @override
   Widget build(BuildContext context) {
+    double _deviceWidth = MediaQuery.of(context).size.width;
+    print(_deviceWidth);
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color.fromARGB(255, 0, 20, 30),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(10),
         child: AppBar(
-          backgroundColor: Colors.black,
+          backgroundColor: Color.fromARGB(255, 0, 20, 30),
         ),
       ),
       body: Center(
@@ -86,21 +88,39 @@ class _InputPageState extends State<InputPage> {
                 ),
               ],
             ),
-            TextField(
-              controller: _controller,
-              decoration: const InputDecoration(
-                hintText: 'いまどうしてる？',
-                hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
-                border: InputBorder.none,
-              ),
-              onChanged: (text) {
-                setState(() {});
-              },
-              autofocus: true,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-              ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Container(
+                    width: _deviceWidth * 0.1,
+                    height: _deviceWidth * 0.1,
+                    child: const CircleAvatar(
+                      backgroundImage: AssetImage('assets/image/IMG_3614.jpg'),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: TextField(
+                    maxLines: null,
+                    controller: _controller,
+                    decoration: const InputDecoration(
+                      hintText: 'いまどうしてる？',
+                      hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
+                      border: InputBorder.none,
+                    ),
+                    onChanged: (text) {
+                      setState(() {});
+                    },
+                    autofocus: true,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
