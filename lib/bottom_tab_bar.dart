@@ -29,12 +29,12 @@ class _BottomTabBarState extends State<BottomTabBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 0, 20, 30),
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(40),
-        child: AppBar(
-          backgroundColor: Color.fromARGB(255, 0, 20, 30),
-        ),
-      ),
+      // appBar: PreferredSize(
+      //   preferredSize: const Size.fromHeight(40),
+      //   child: AppBar(
+      //     backgroundColor: Color.fromARGB(255, 0, 20, 30).withOpacity(0.6),
+      //   ),
+      // ),
       drawer: Drawer(
         backgroundColor: Color.fromARGB(255, 0, 16, 24),
         child: ListView(
@@ -60,9 +60,21 @@ class _BottomTabBarState extends State<BottomTabBar> {
               ),
               onTap: () {},
             ),
+            ListTile(
+              leading: const Icon(
+                Icons.settings,
+                color: Colors.white,
+              ),
+              title: const Text(
+                '設定',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {},
+            ),
           ],
         ),
       ),
+      extendBodyBehindAppBar: true,
       body: display[selectedIndex],
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(

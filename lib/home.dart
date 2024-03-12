@@ -51,189 +51,198 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     double _deviceWidth = MediaQuery.of(context).size.width;
-    // const CustomScrollView(
-    //         slivers: [
-    //           SliverAppBar(
-    //             pinned: false,
-    //             floating: true,
-    //             snap: true,
-    //             backgroundColor: Color.fromARGB(255, 0, 20, 30),
-    //             expandedHeight: 100,
-    //             flexibleSpace: FlexibleSpaceBar(
-    //               title: Text(
-    //                 'aaa',
-    //               ),
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    return Align(
-      alignment: Alignment.topCenter,
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            FutureBuilder<List<String>?>(
-              future: getText(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<String>?> snapshot) {
-                if (snapshot.hasData) {
-                  List<String>? data = snapshot.data;
-                  int dataLength = data!.length;
-                  return Column(
-                    children: <Widget>[
-                      for (int i = 0; i < dataLength; i++) ...{
-                        Container(
-                          padding: const EdgeInsets.only(
-                              top: 10, right: 10, bottom: 0, left: 10),
-                          width: _deviceWidth,
-                          decoration: const BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(width: 1, color: Colors.grey),
-                            ),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
+    return CustomScrollView(
+      slivers: [
+        const SliverAppBar(
+          pinned: false,
+          floating: true,
+          snap: true,
+          backgroundColor: Color.fromARGB(255, 0, 20, 30),
+          expandedHeight: 40,
+          flexibleSpace: FlexibleSpaceBar(
+            title: Text(
+              'aaa',
+            ),
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  FutureBuilder<List<String>?>(
+                    future: getText(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<String>?> snapshot) {
+                      if (snapshot.hasData) {
+                        List<String>? data = snapshot.data;
+                        int dataLength = data!.length;
+                        return Column(
+                          children: <Widget>[
+                            for (int i = 0; i < dataLength; i++) ...{
                               Container(
-                                padding:
-                                    EdgeInsets.only(top: _deviceWidth * 0.02),
-                                width: _deviceWidth * 0.12,
-                                height:
-                                    _deviceWidth * 0.12 + _deviceWidth * 0.02,
-                                child: CircleAvatar(
-                                  backgroundImage: AssetImage(userImagePass),
+                                padding: const EdgeInsets.only(
+                                    top: 10, right: 10, bottom: 0, left: 10),
+                                width: _deviceWidth,
+                                decoration: const BoxDecoration(
+                                  border: Border(
+                                    bottom: BorderSide(
+                                        width: 1, color: Colors.grey),
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Column(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Container(
                                       padding: EdgeInsets.only(
-                                        left: 14,
+                                          top: _deviceWidth * 0.02),
+                                      width: _deviceWidth * 0.12,
+                                      height: _deviceWidth * 0.12 +
+                                          _deviceWidth * 0.02,
+                                      child: CircleAvatar(
+                                        backgroundImage:
+                                            AssetImage(userImagePass),
                                       ),
+                                    ),
+                                    Expanded(
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
                                         children: <Widget>[
-                                          Row(
-                                            children: <Widget>[
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 10),
-                                                child: Text(
-                                                  userName,
+                                          Container(
+                                            padding: EdgeInsets.only(
+                                              left: 14,
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Row(
+                                                  children: <Widget>[
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 10),
+                                                      child: Text(
+                                                        userName,
+                                                        style: const TextStyle(
+                                                            fontSize: 18,
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      userId,
+                                                      style: const TextStyle(
+                                                        fontSize: 16,
+                                                        color: Colors.grey,
+                                                      ),
+                                                    ),
+                                                    const Text(
+                                                      '・00分',
+                                                      style: const TextStyle(
+                                                        fontSize: 16,
+                                                        color: Colors.grey,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Text(
+                                                  data[dataLength - i - 1],
                                                   style: const TextStyle(
-                                                      fontSize: 18,
-                                                      color: Colors.white),
+                                                    fontSize: 18,
+                                                    color: Colors.white,
+                                                  ),
+                                                  textAlign: TextAlign.start,
                                                 ),
+                                              ],
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              IconButton(
+                                                onPressed: () {},
+                                                icon: const Icon(
+                                                    Icons.chat_bubble_outline),
+                                                iconSize: 18,
+                                                color: Colors.grey,
                                               ),
-                                              Text(
-                                                userId,
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.grey,
-                                                ),
+                                              IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    cachedSelect[dataLength -
+                                                            i -
+                                                            1] =
+                                                        !cachedSelect[
+                                                            dataLength - i - 1];
+                                                  });
+                                                },
+                                                icon: const Icon(Icons.cached),
+                                                iconSize: 18,
+                                                color: cachedSelect[
+                                                        dataLength - i - 1]
+                                                    ? Colors.green
+                                                    : Colors.grey,
                                               ),
-                                              const Text(
-                                                '・00分',
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.grey,
-                                                ),
+                                              IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    favoriteSelect[dataLength -
+                                                            i -
+                                                            1] =
+                                                        !favoriteSelect[
+                                                            dataLength - i - 1];
+                                                    saveFavorite();
+                                                    print(i);
+                                                  });
+                                                },
+                                                icon: favoriteSelect[
+                                                        dataLength - i - 1]
+                                                    ? const Icon(Icons.favorite)
+                                                    : const Icon(
+                                                        Icons.favorite_outline),
+                                                iconSize: 18,
+                                                color: favoriteSelect[
+                                                        dataLength - i - 1]
+                                                    ? Colors.pink
+                                                    : Colors.grey,
+                                              ),
+                                              IconButton(
+                                                onPressed: () {},
+                                                icon: const Icon(
+                                                    Icons.save_alt_sharp),
+                                                iconSize: 18,
+                                                color: Colors.grey,
                                               ),
                                             ],
-                                          ),
-                                          Text(
-                                            data[dataLength - i - 1],
-                                            style: const TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.white,
-                                            ),
-                                            textAlign: TextAlign.start,
                                           ),
                                         ],
                                       ),
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(
-                                              Icons.chat_bubble_outline),
-                                          iconSize: 18,
-                                          color: Colors.grey,
-                                        ),
-                                        IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              cachedSelect[dataLength - i - 1] =
-                                                  !cachedSelect[
-                                                      dataLength - i - 1];
-                                            });
-                                          },
-                                          icon: const Icon(Icons.cached),
-                                          iconSize: 18,
-                                          color:
-                                              cachedSelect[dataLength - i - 1]
-                                                  ? Colors.green
-                                                  : Colors.grey,
-                                        ),
-                                        IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              favoriteSelect[
-                                                      dataLength - i - 1] =
-                                                  !favoriteSelect[
-                                                      dataLength - i - 1];
-                                              saveFavorite();
-                                              print(i);
-                                            });
-                                          },
-                                          icon:
-                                              favoriteSelect[dataLength - i - 1]
-                                                  ? const Icon(Icons.favorite)
-                                                  : const Icon(
-                                                      Icons.favorite_outline),
-                                          iconSize: 18,
-                                          color:
-                                              favoriteSelect[dataLength - i - 1]
-                                                  ? Colors.pink
-                                                  : Colors.grey,
-                                        ),
-                                        IconButton(
-                                          onPressed: () {},
-                                          icon:
-                                              const Icon(Icons.save_alt_sharp),
-                                          iconSize: 18,
-                                          color: Colors.grey,
-                                        ),
-                                      ],
-                                    ),
                                   ],
                                 ),
                               ),
-                            ],
+                            }
+                          ],
+                        );
+                      } else {
+                        return const Text(
+                          'まだなにもおきていません',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
                           ),
-                        ),
+                        );
                       }
-                    ],
-                  );
-                } else {
-                  return const Text(
-                    'まだなにもおきていません',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                    ),
-                  );
-                }
-              },
+                    },
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
+          ),
+        )
+      ],
     );
   }
 }
