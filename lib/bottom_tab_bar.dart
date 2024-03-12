@@ -40,8 +40,14 @@ class _BottomTabBarState extends State<BottomTabBar> {
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('assets/image/IMG_3614.jpg'),
               ),
-              accountName: Text('rei'),
-              accountEmail: Text('@Gamusiro__'),
+              accountName: Text(
+                'rei',
+                style: TextStyle(fontSize: 16),
+              ),
+              accountEmail: Text(
+                '@Gamusiro__',
+                style: TextStyle(fontSize: 16),
+              ),
             ),
             ListTile(
               leading: const Icon(
@@ -50,7 +56,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
               ),
               title: const Text(
                 'プロフィール',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               onTap: () {},
             ),
@@ -61,7 +67,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
               ),
               title: const Text(
                 '設定',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               onTap: () {},
             ),

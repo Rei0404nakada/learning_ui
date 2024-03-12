@@ -61,7 +61,7 @@ class HomeState extends State<Home> {
           expandedHeight: 40,
           flexibleSpace: FlexibleSpaceBar(
             title: Text(
-              'aaa',
+              'twitter',
             ),
           ),
         ),
